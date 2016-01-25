@@ -1,0 +1,19 @@
+#lang racket
+(define (simpson-integral func a b n)
+ 
+  (define h (/ (- b a)
+                  n))
+  
+  (define (next n)
+    (func (+ a (* n h))))
+  
+  (define (sum-int acc counter)
+    (if (= counter n)
+        (+ acc (next counter))
+        (if (even? counter)
+            (sum-int (+ acc (* 2 (next counter))) (+ counter 1))
+            (sum-int (+ acc (* 4 (next counter))) (+ counter 1)))))
+        
+     
+  (* (/ h 3)
+     (sum-int 0 0)))
