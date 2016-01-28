@@ -1,0 +1,17 @@
+#lang racket
+;;Recursive function
+(define (func-sum-three n)
+  (if (< n 3)
+      n
+      (+ (func-sum-three (- n 1))
+         (func-sum-three (- n 2))
+         (func-sum-three (- n 3)))))
+               
+;;Iterative function
+(define (func-sum-three-iter n)
+  (define (sum x acc)
+    (if (> x n)
+        acc
+        (if (< x 3)
+            (+ acc x)
+            (+ sum (- x 1)
