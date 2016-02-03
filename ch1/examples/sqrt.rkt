@@ -14,10 +14,15 @@
 
 ;;fixed-point procedure
 ;;finds fixed point for given function and initial guess
-(define (fixed-point f guess)
-  (if (< (abs (- (f guess) guess)) tolerance)
-      guess
-      (fixed-point f (f guess))))
+(define (fixed-point func first-guess)
+  (define (close-enough? v1 v2)
+    (< (abs (- v1 v2)) tolerance))
+  (define (try guess)
+    (let ((next (func guess)))
+      (if (close-enough? guess next)
+          next
+          (try next))))
+  (try first-guess))
 
 ;;average-damp procedure
 ;;returns lambda-function, which is average damp for given function
