@@ -4,7 +4,7 @@
 
 (define (repeated  f n)
   (define (iter func-rep i)
-    (if (= i 1)
+    (if (= i n)
         func-rep
-        (iter (compose func-rep func-rep) (- i 1))))
-  (iter f n))
+        (iter (compose f func-rep) (+ i 1))))
+  (iter f 1))
