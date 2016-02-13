@@ -6,3 +6,5 @@
   (if (< y 0)
       (cons (* -1 x) (* -1 y))
       (cons x y)))
+
+(provide make-rat)
