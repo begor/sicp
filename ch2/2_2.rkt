@@ -35,4 +35,6 @@
 
 (provide make-segment
          make-point
+         x-point
+         y-point
          midpoint-segment)
