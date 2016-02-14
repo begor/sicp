@@ -7,7 +7,7 @@
 
 (define interval-tests
   (test-suite
-   "Tests for exercise 2.7"
+   "Tests for exercise 2.9"
    (let ([a (make-interval 2.0 5.0)]
          [b (make-interval 20.0 100.0)]
          [c (make-interval 10.0 20.0)])
