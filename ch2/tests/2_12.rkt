@@ -10,8 +10,8 @@
    (let ([a (make-center-percent 2 20)]
          [b (make-center-percent 25 100)]
          [c (make-center-percent -10 10)])
-     (check-equal? (percent a) 20)
-     (check-equal? (percent b) 100)
-     (check-equal? (percent c) 10))))
+     (check-equal? (percent a) 20.0)
+     (check-equal? (percent b) 100.0)
+     (check-equal? (percent c) 10.0))))
 
 (run-tests percent-tests)

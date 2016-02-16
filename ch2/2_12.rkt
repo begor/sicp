@@ -10,7 +10,7 @@
 (define (percent int)
   (abs (* (/ (- (upper-bound int) (lower-bound int))
              (+ (upper-bound int) (lower-bound int)))
-          100)))
+          100.0)))
 
 (provide make-center-percent
          percent)
