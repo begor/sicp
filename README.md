@@ -1,5 +1,5 @@
 # SICP
 
-![SICP cover](http://ecx.images-amazon.com/images/I/71cWa92TMyL.jpg)
+![SICP cover](http://icampus.mit.edu/files/2011/12/xTutor1.jpg)
 
 Problems from SICP book. Solved in Racket with care. 
