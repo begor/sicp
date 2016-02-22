@@ -1,6 +1,4 @@
 #lang racket
-(require "2_21.rkt")
-
 (define (square x) 
   (* x x))
 
