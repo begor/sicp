@@ -14,6 +14,7 @@
 (define (length sequence)
   (accumulate (lambda (x y) (+ 1 y)) 0 sequence))
 
-(provide map
+(provide accumulate
+         map
          append
          length)
