@@ -26,8 +26,7 @@
         ((not (pair? tree)) (proc tree))
         (else (cons (tree-map (car tree) proc)
                       (tree-map (cdr tree) proc)))))
-(define a (list 1 (list 2 (list 3 4) 5) (list 6 7)))         
-
+      
 (provide square-tree
          square-tree-m
          square-tree-map)
