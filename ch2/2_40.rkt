@@ -35,4 +35,7 @@
        (filter prime-sum? (unique-pairs n))))
 
 
-(provide prime-sum-pairs)
+(provide flatmap
+         accumulate
+         enumerate-interval
+         prime-sum-pairs)
