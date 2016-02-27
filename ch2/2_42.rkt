@@ -33,6 +33,6 @@
                    (abs (- (cdr pos) last)))))
           (cdr positions)))
             
-(queens 4)
+(provide queens)
 
   
