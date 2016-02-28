@@ -2,20 +2,22 @@
 (require "2_40.rkt")
 
 (define (queens board)
-  (define (add-queen last-col)
+  (define (add-queen column)
+    (flatmap
+     (lambda (rest-of-queens)
+       (map (lambda (new-queen-row)
+              (add-position new-queen-row column rest-of-queens))
+            (enumerate-interval 1 board)))
+     (locate-queens-positions (- column 1))))
+  (define (filter-safe last-col positions)
     (filter
-         (lambda (positions) (safe? last-col positions))
-         (flatmap
-          (lambda (rest-of-queens)
-            (map (lambda (new-queen-row)
-                   (add-position new-queen-row last-col rest-of-queens))
-                 (enumerate-interval 1 board)))
-          (locate-queens-positions (- last-col 1)))))
+     (lambda (positions) (safe? last-col positions))
+     positions))
   (define (locate-queens-positions last-col)
     (if (= last-col 0)
         (list '())
-        (add-queen last-col)))
-
+        (filter-safe last-col
+                     (add-queen last-col))))
   (locate-queens-positions board))
 
 
