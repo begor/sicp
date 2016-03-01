@@ -28,6 +28,8 @@
     (make-vect x y)))
 
 (provide make-vect
+         xcor-vect
+         ycor-vect
          add-vect
          sub-vect
          scale-vect)
