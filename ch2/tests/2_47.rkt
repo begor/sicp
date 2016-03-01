@@ -2,7 +2,7 @@
 (require rackunit
          rackunit/text-ui
          "../2_46.rkt"
-         "../2_47_1.rkt")
+         "../2_47_2.rkt")
 
 (define frame-tests
   (test-suite
@@ -11,7 +11,6 @@
          [e2 (make-vect 3 5)]
          [o (make-vect 2 1)])
      (let ([frame (make-frame o e1 e2)])
-       (check-equal? frame (list o e1 e2))
        (check-equal? (edge1-frame frame) e1)
        (check-equal? (edge2-frame frame) e2)
        (check-equal? (origin-frame frame) o)))))
