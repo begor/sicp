@@ -82,3 +82,10 @@
 
 (define (base a)
   (cadr a))
+
+
+;; Providing functions
+(provide deriv
+         make-exponential
+         make-product
+         make-sum)
