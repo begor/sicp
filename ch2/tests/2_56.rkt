@@ -1,11 +1,11 @@
 #lang racket
 (require rackunit
          rackunit/text-ui
-         "../2_55.rkt")
+         "../2_56.rkt")
 
 (define deriv-tests
   (test-suite
-   "Tests for exercise 2.55"
+   "Tests for exercise 2.56"
    (check-equal? (deriv '(** x 3) 'x) '(* 3 (** x 2)))
    (check-equal? (deriv '(* x y) 'x) 'y)))
 
