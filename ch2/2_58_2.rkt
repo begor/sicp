@@ -1,43 +1,49 @@
 #lang racket
+;; Type checks
 (define (variable? x) (symbol? x))
 
 (define (same-variable? v1 v2)
-  (and (variable? v1) (variable? v2) (eq? v1 v2)))
+  (and (variable? v1)
+       (variable? v2)
+       (eq? v1 v2)))
 
-(define (atom? x)
-  (or (not (pair? x))
-      (null? (cdr x))))
-
-(define (type? x op)
-  (and (pair? x) (eq? (type x) op)))
-
-(define (type x)
-  (define (type-high type)
-    (cond ((eq? type '+) 3)
-          ((eq? type '*) 2)
-          ((eq? type '**) 1)
-          (else 0)))
-  (define (iter-type-guess x highest-op)
-    (if (or (atom? x)
-            (null? (cdr x)))
-        highest-op
-        (if (> (type-high (cadr x)) (type-high highest-op))
-            (iter-type-guess (cddr x) (cadr x))
-            (iter-type-guess (cddr x) highest-op))))
-  (iter-type-guess x 0))
+; If expression if the same operation as op?
+(define (operation? exp op)
+  (and (pair? exp)
+       (eq? (operation exp) op)))
 
 (define (sum? x)
-  (type? x '+))
+  (operation? x '+))
 
 (define (product? x)
-  (type? x '*))
+  (operation? x '*))
 
 (define (exponentiation? x)
-  (type? x '**))
+  (operation? x '**))
 
 (define (=number? exp num)
   (and (number? exp) (= exp num)))
 
+;;;;;;;;;;;;;;;;;;;;
+
+;; Helper procedures
+
+; Evaluates type of a given expression
+; An operation with lowest priority in the expression is the 'type' of expression.
+(define (operation expr)
+  (cond ((memq '+ expr) '+)
+        ((memq '* expr) '*)
+        ((memq '** expr) '**)))
+
+; Returns simple atom (car x) if (cdr x) is null
+(define (return-atom-or-list x)
+  (if (null? (cdr x))
+      (car x)
+      x))
+
+;;;;;;;;;;;;;;;;;;;;
+
+;; Constructors
 (define (make-sum a1 a2)
   (cond ((=number? a1 0) a2)
         ((=number? a2 0) a1)
@@ -57,34 +63,44 @@
         ((=number? e 1) b)
         (else (list b '** e))))
 
-(define (get-first s op)
-  (let ([first ((lambda (s) (if (eq? (cadr s) op)
-                                (list (car s))
-                                (append (list (car s)) (get-first (cdr s) op)))) s)])
-    (if (null? (cdr first))
-        (car first)
-        first)))
+;;;;;;;;;;;;;;;;;;;;
 
-(define (get-second exp op)
-  (let ([second ((lambda (exp) (if (eq? (cadr exp) op)
-                                   (cddr exp)
-                                   (get-second (cdr exp) op))) exp)])
-    (if (and (atom? second) (not (number? second)))
-        (car second)
-        second)))
+;; Selectors
+; Gets the first term of expression with a given operation
+(define (get-first-term expression operation)
+  (define (find-first expression)
+    (if (eq? (cadr expression) operation)
+        (list (car expression))
+        (append (list (car expression))
+                (find-first (cdr expression)))))
+  (let ([first (find-first expression)])
+    (return-atom-or-list first)))
 
-(define (addend s) (get-first s '+))
+; Gets the second term of expression with a given operation
+(define (get-second-term expression operation)
+  (define (find-second expression)
+    (if (eq? (cadr expression) operation)
+        (cddr expression)
+        (find-second (cdr expression))))
+  (let ([second (find-second expression)])
+    (return-atom-or-list second)))
+
+(define (addend s) (get-first-term s '+))
  
-(define (augend s) (get-second s '+))
+(define (augend s) (get-second-term s '+))
 
-(define (multiplier p) (get-first p '*))
+(define (multiplier p) (get-first-term p '*))
 
-(define (multiplicand p) (get-second p '*))
+(define (multiplicand p) (get-second-term p '*))
 
-(define (base exp) (get-first exp '**))
+(define (base exp) (get-first-term exp '**))
 
-(define (exponent exp) (get-second exp '**))
+(define (exponent exp) (get-second-term exp '**))
 
+;;;;;;;;;;;;;;;;;;;;
+
+
+; Main deriv procedure. Computes derivative of a given expression on a given variable.
 (define (deriv exp var)
   (cond ((number? exp) 0)
         ((variable? exp)
@@ -105,7 +121,5 @@
                        (deriv (base exp) var)))
         (else
          (error "неизвестный тип выражения" exp))))
-
-(define a '(x ** 3 + x ** 2))
 
 (provide deriv)
