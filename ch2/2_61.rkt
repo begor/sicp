@@ -26,4 +26,5 @@
                     (adjoin-set x (cdr set))))))
 
 
-(provide adjoin-set)
+(provide adjoin-set
+         element-of-set?)
