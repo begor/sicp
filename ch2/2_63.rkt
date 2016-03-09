@@ -29,7 +29,8 @@
                     (adjoin-set x (right-branch set))))))
 
 ;; Following procedures convers given tree to a list
-;; They acts the same, producing sorted lists for a tree.
+;; They acts the same, producing sorted lists for a given tree.
+;; They also have same complexity O(n)
 (define (tree->list-1 tree)
   (if (null? tree)
       '()
