@@ -49,6 +49,9 @@
   (copy-to-list tree '()))
 
 (provide make-tree
+         entry
+         right-branch
+         left-branch
          tree->list-1
          tree->list-2)
 
