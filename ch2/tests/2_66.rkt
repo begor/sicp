@@ -4,7 +4,7 @@
          "../2_64.rkt"
          "../2_66.rkt")
 
-(define binary-tree-tests
+(define lookup-tests
   (test-suite
    "Tests for exercise 2_66"
    (let ([db (list->tree (list (make-record 1 'Lisp)
@@ -17,4 +17,4 @@
      
          
 
-(run-tests binary-tree-tests)
+(run-tests lookup-tests)
