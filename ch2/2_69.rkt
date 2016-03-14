@@ -20,7 +20,7 @@
 
 (define (successive-merge set)
   (if (null? (cdr set))
-      set
+      (car set)
       (successive-merge (adjoin-set (make-code-tree (car set) (cadr set))
                                     (cddr set)))))
 
