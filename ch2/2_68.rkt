@@ -22,13 +22,6 @@
                 (else (error "Символа нет в дереве!" symbol))))))
   (encode '() tree))
 
-(define sample-tree
-  (make-code-tree (make-leaf 'A 4)
-                  (make-code-tree
-                   (make-leaf 'B 2)
-                   (make-code-tree (make-leaf 'D 1)
-                                   (make-leaf 'C 1)))))
-
 (provide encode)
                        
         
