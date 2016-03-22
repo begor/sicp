@@ -17,6 +17,6 @@
 (define (install-complex-package)
   ;; Other operations...
   
-  (put 'equ? ’(rational rational)
+  (put 'equ? ’(complex complex)
        (lambda (x y) (and (= (real-part x) (real-part y)
                              (imag-part x) (imag-part y))))))
