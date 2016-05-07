@@ -6,9 +6,23 @@
          (count-pairs (cdr x))
          1)))
 
+(define three (list 'a 'b 'c))
+(count-pairs three) ; 3
+
 (define a '(a))
-(define aa (cons a a))
-(define three (list 'a 'b 'c)) ; 3 
-(define four (list a a)) ; 4
-(define seven (cons aa aa)) ; 7
-(define inf (set-cdr! a a)) ; recursion overflow since cdr of a is itself a
+(define four (list a a))
+(count-pairs four)
+; 4
+; four -> [#a][]->[#a][/]
+; a    -> [a][/]
+
+
+(define b '(b))
+(define seven (list b (list b b)))
+(count-pairs seven)
+; 7
+; seven -> [#b][]->[#b][]->[b][/](#b)
+
+(define inf '(a b c))
+(set-cdr! (cddr inf) inf)
+; inf
