@@ -17,9 +17,13 @@
 ; a    -> [a][/]
 
 
-(define b '(b))
-(define seven (list b (list b b)))
-(count-pairs seven)
+(define seven (list 'c))
+(define b (list 'b))
+(define c (list 'a))
+(set-car! b c)
+(set-cdr! b c)
+(set-car! seven b)
+(set-cdr! seven b)
 ; 7
 ; seven -> [#b][]->[#b][]->[b][/](#b)
 
